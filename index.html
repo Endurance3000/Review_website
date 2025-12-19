@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Review Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Product Review Platform</h1>
+            <p class="tagline">Share your experiences with products, shops, and e-commerce sites</p>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-button active" data-tab="submit">Submit Review</button>
+            <button class="tab-button" data-tab="view">View Reviews</button>
+            <button class="tab-button" data-tab="my-reviews">My Reviews</button>
+        </nav>
+
+        <!-- Submit Review Tab -->
+        <section id="submit-tab" class="tab-content active">
+            <h2>Submit a New Review</h2>
+            <form id="review-form">
+                <div class="form-group">
+                    <label for="user_name">Your Name *</label>
+                    <input type="text" id="user_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="review_type">Review Type *</label>
+                    <select id="review_type" required>
+                        <option value="">Select type...</option>
+                        <option value="product">Product</option>
+                        <option value="shop">Shop</option>
+                        <option value="website">E-Commerce Website</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="target_name">Product/Shop/Website Name *</label>
+                    <input type="text" id="target_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="target_description">Description</label>
+                    <textarea id="target_description" rows="2"></textarea>
+                </div>
+
+                <div class="form-group" id="categories-group">
+                    <label>Categories * (Select at least one)</label>
+                    <div class="categories-grid">
+                        <label><input type="checkbox" name="category" value="headphones"> Headphones</label>
+                        <label><input type="checkbox" name="category" value="mobile_phones"> Mobile Phones</label>
+                        <label><input type="checkbox" name="category" value="dongles"> Dongles</label>
+                        <label><input type="checkbox" name="category" value="lamps"> Lamps</label>
+                        <label><input type="checkbox" name="category" value="clothes"> Clothes</label>
+                        <label><input type="checkbox" name="category" value="kitchen_utensils"> Kitchen Utensils</label>
+                        <label><input type="checkbox" name="category" value="electronics"> Electronics</label>
+                        <label><input type="checkbox" name="category" value="home_garden"> Home & Garden</label>
+                        <label><input type="checkbox" name="category" value="sports"> Sports</label>
+                        <label><input type="checkbox" name="category" value="books"> Books</label>
+                        <label><input type="checkbox" name="category" value="toys"> Toys</label>
+                        <label><input type="checkbox" name="category" value="other"> Other</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="rating">Rating *</label>
+                    <div class="star-rating">
+                        <input type="radio" name="rating" id="star5" value="5">
+                        <label for="star5">★</label>
+                        <input type="radio" name="rating" id="star4" value="4">
+                        <label for="star4">★</label>
+                        <input type="radio" name="rating" id="star3" value="3">
+                        <label for="star3">★</label>
+                        <input type="radio" name="rating" id="star2" value="2">
+                        <label for="star2">★</label>
+                        <input type="radio" name="rating" id="star1" value="1">
+                        <label for="star1">★</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="review_text">Review Text *</label>
+                    <textarea id="review_text" rows="6" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="photos">Upload Photos (optional)</label>
+                    <input type="file" id="photos" accept="image/*" multiple>
+                    <div id="photo-preview" class="photo-preview"></div>
+                </div>
+
+                <div class="error-message" id="form-error"></div>
+                <button type="submit" class="btn-primary">Submit Review</button>
+            </form>
+        </section>
+
+        <!-- View Reviews Tab -->
+        <section id="view-tab" class="tab-content">
+            <h2>All Reviews</h2>
+            <div class="filter-controls">
+                <label for="filter">Sort by:</label>
+                <select id="filter">
+                    <option value="recent">Most Recent</option>
+                    <option value="highest">Highest Rating</option>
+                    <option value="lowest">Lowest Rating</option>
+                </select>
+
+                <label for="type-filter">Type:</label>
+                <select id="type-filter">
+                    <option value="all">All Types</option>
+                    <option value="product">Products</option>
+                    <option value="shop">Shops</option>
+                    <option value="website">Websites</option>
+                </select>
+            </div>
+            <div id="reviews-container" class="reviews-container"></div>
+        </section>
+
+        <!-- My Reviews Tab -->
+        <section id="my-reviews-tab" class="tab-content">
+            <h2>My Reviews</h2>
+            <div id="my-reviews-container" class="reviews-container"></div>
+        </section>
+
+        <!-- Edit Review Modal -->
+        <div id="edit-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Edit Review</h2>
+                <form id="edit-form">
+                    <input type="hidden" id="edit_review_id">
+                    
+                    <div class="form-group">
+                        <label for="edit_rating">Rating *</label>
+                        <div class="star-rating">
+                            <input type="radio" name="edit_rating" id="edit_star5" value="5">
+                            <label for="edit_star5">★</label>
+                            <input type="radio" name="edit_rating" id="edit_star4" value="4">
+                            <label for="edit_star4">★</label>
+                            <input type="radio" name="edit_rating" id="edit_star3" value="3">
+                            <label for="edit_star3">★</label>
+                            <input type="radio" name="edit_rating" id="edit_star2" value="2">
+                            <label for="edit_star2">★</label>
+                            <input type="radio" name="edit_rating" id="edit_star1" value="1">
+                            <label for="edit_star1">★</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_review_text">Review Text *</label>
+                        <textarea id="edit_review_text" rows="6" required></textarea>
+                    </div>
+
+                    <div class="error-message" id="edit-error"></div>
+                    <button type="submit" class="btn-primary">Update Review</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
